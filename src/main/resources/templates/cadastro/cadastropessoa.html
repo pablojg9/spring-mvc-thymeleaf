@@ -23,10 +23,20 @@
         <label>password</label>
         <input type="text" placeholder="password" name="password" th:field="*{password}"><br />
 
-        <input value="salvar" type="submit">
+        <button type="submit" value="salvar" class="btn waves-effect waves-light green">
+            Salvar
+            <i class="material-icons right">add_circle</i>
+        </button>
+
     </form>
 
-    <a href="/listAccounts" type="button">LISTA</a>
+    <br />
+
+    <button type="submit" value="salvar" class="btn waves-effect waves-light green">
+        <i class="material-icons right">list</i>
+        <a href="/listAccounts" type="button" style="color: white">Listar</a>
+    </button>
+
 
     <table>
         <tr th:each="account : ${accounts}">
@@ -34,7 +44,14 @@
             <td th:text="${account.getUsername()}"></td>
             <td th:text="${account.getLogin()}"></td>
             <td th:text="${account.getPassword()}"></td>
-            <td><a th:href="@{/editAccount/{idAccount}(idAccount=${account.getId()})}">Editar</a></td>
+            <td><a th:href="@{/editAccount/{idAccount}(idAccount=${account.getId()})}" class="btn-floating btn-small waves-effect waves-light blue">
+                <i class="material-icons left">edit</i>
+            </a>
+            </td>
+            <td><a th:href="@{removeAccount/{idAccount}(idAccount=${account.getId()})}" class="btn-floating btn-small waves-effect waves-light red">
+                <i class="material-icons right">remove_circle</i>
+                </a>
+            </td>
         </tr>
     </table>
 
