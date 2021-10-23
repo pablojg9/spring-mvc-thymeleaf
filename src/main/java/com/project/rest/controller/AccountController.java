@@ -4,9 +4,13 @@ import com.project.rest.model.Account;
 import com.project.rest.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Optional;
 
 @Controller
 public class AccountController {
@@ -14,32 +18,45 @@ public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/cadastro")
-    public String viewHandler(){
-        return "cadastro/cadastropessoa";
+    @RequestMapping(method = RequestMethod.GET, value = "/register")
+    public ModelAndView viewHandler(){
+
+        ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
+        modelAndView.addObject("account", new Account());
+
+        return modelAndView;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/salvar")
-    public String save(Account account){
+    @RequestMapping(method = RequestMethod.POST, value = "/save")
+    public ModelAndView save(Account account){
         accountRepository.save(account);
-        return "cadastro/cadastropessoa";
+
+        ModelAndView andView = new ModelAndView("cadastro/cadastropessoa");
+
+        Iterable<Account> accountIterable = accountRepository.findAll();
+        andView.addObject("accounts", accountIterable);
+
+        return andView;
     }
 
-
-    @RequestMapping(method = RequestMethod.POST, value = "/listSave")
-    public String saveList(Account account) {
-        accountRepository.save(account);
-        return "list/list";
-    }
-
-
-    @RequestMapping(method = RequestMethod.GET, value = "/listaAccounts")
-    public ModelAndView accounts(){
-        ModelAndView andView = new ModelAndView("list/list");
+    @RequestMapping(method = RequestMethod.GET, value = "/listAccounts")
+    public ModelAndView accounts() {
+        ModelAndView andView = new ModelAndView("cadastro/cadastropessoa");
 
         Iterable<Account> accountIterable = accountRepository.findAll();
 
         andView.addObject("accounts", accountIterable);
         return andView;
+    }
+
+    @GetMapping(value = "/editAccount/{idAccount}")
+    public ModelAndView accountEdit(@PathVariable("idAccount") Long idAccount) {
+
+        Optional<Account> account = accountRepository.findById(idAccount);
+
+        ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
+        modelAndView.addObject("account", account.get());
+
+        return modelAndView;
     }
 }

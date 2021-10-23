@@ -6,24 +6,38 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cadastro</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
 </head>
 <body>
     <h1>Cadastro</h1>
-    <form action="/salvar" method="post">
+    <form action="/save" method="post" th:object="${account}">
+        <label>ID:</label>
+        <input name="id" th:field="*{id}"/>
         <label>Nome</label>
-        <input type="text" placeholder="username" name="username"><br />
+        <input type="text" placeholder="username" name="username" th:field="*{username}"><br />
 
         <label>login</label>
-        <input type="text" placeholder="login" name="login"><br />
+        <input type="text" placeholder="login" name="login" th:field="*{login}"><br />
 
         <label>password</label>
-        <input type="text" placeholder="password" name="password"><br />
+        <input type="text" placeholder="password" name="password" th:field="*{getPassword()}"><br />
 
         <input value="salvar" type="submit">
     </form>
 
-    <form action="listaAccounts">
-        <input value="ver lista" type="submit">
-    </form>
+    <a href="/listAccounts" type="button">LISTA</a>
+
+    <table>
+        <tr th:each="account : ${accounts}">
+            <td th:text="${account.getId()}"></td>
+            <td th:text="${account.getUsername()}"></td>
+            <td th:text="${account.getLogin()}"></td>
+            <td th:text="${account.getPassword()}"></td>
+            <td><a th:href="@{/editAccount/{idAccount}(idAccount=${account.getId()})}">Editar</a></td>
+        </tr>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
