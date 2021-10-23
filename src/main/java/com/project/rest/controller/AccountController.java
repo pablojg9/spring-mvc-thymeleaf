@@ -22,7 +22,7 @@ public class AccountController {
     public ModelAndView viewHandler(){
 
         ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
-        modelAndView.addObject("account", new Account());
+        modelAndView.addObject("accountobj", new Account());
 
         return modelAndView;
     }
@@ -35,6 +35,7 @@ public class AccountController {
 
         Iterable<Account> accountIterable = accountRepository.findAll();
         andView.addObject("accounts", accountIterable);
+        andView.addObject("accountobj", new Account());
 
         return andView;
     }
@@ -46,6 +47,7 @@ public class AccountController {
         Iterable<Account> accountIterable = accountRepository.findAll();
 
         andView.addObject("accounts", accountIterable);
+        andView.addObject("accountobj", new Account());
         return andView;
     }
 
@@ -55,7 +57,7 @@ public class AccountController {
         Optional<Account> account = accountRepository.findById(idAccount);
 
         ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
-        modelAndView.addObject("account", account.get());
+        modelAndView.addObject("accountobj", account.get());
 
         return modelAndView;
     }

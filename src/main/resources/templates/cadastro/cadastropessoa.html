@@ -11,9 +11,9 @@
 </head>
 <body>
     <h1>Cadastro</h1>
-    <form action="/save" method="post" th:object="${account}">
+    <form action="/save" method="post" th:object="${accountobj}">
         <label>ID:</label>
-        <input name="id" th:field="*{id}"/>
+        <input name="id" th:field="*{id}" readonly="readonly"/>
         <label>Nome</label>
         <input type="text" placeholder="username" name="username" th:field="*{username}"><br />
 
@@ -21,7 +21,7 @@
         <input type="text" placeholder="login" name="login" th:field="*{login}"><br />
 
         <label>password</label>
-        <input type="text" placeholder="password" name="password" th:field="*{getPassword()}"><br />
+        <input type="text" placeholder="password" name="password" th:field="*{password}"><br />
 
         <input value="salvar" type="submit">
     </form>
