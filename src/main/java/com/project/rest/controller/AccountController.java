@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
@@ -69,6 +71,16 @@ public class AccountController {
 
         ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
         modelAndView.addObject("accounts", accountRepository.findAll());
+        modelAndView.addObject("accountobj", new Account());
+
+        return modelAndView;
+    }
+
+    @PostMapping("**/searchAccount")
+    public ModelAndView search(@RequestParam("nameAccount") String nameAccount) {
+        ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
+
+        modelAndView.addObject("accounts", accountRepository.findAccountByUsername(nameAccount));
         modelAndView.addObject("accountobj", new Account());
 
         return modelAndView;
