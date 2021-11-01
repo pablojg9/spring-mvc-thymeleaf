@@ -24,8 +24,9 @@ public class AccountController {
     public ModelAndView viewHandler(){
 
         ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
+        Iterable<Account> accountIterable = accountRepository.findAll();
+        modelAndView.addObject("accounts", accountIterable);
         modelAndView.addObject("accountobj", new Account());
-
         return modelAndView;
     }
 
@@ -85,4 +86,17 @@ public class AccountController {
 
         return modelAndView;
     }
+
+    @GetMapping(value = "/phoneAccount/{idAccount}")
+    public ModelAndView phoneAccount(@PathVariable("idAccount") Long idAccount) {
+
+        Optional<Account> account = accountRepository.findById(idAccount);
+
+        ModelAndView modelAndView = new ModelAndView("cadastro/phones");
+        modelAndView.addObject("accountobj", account.get());
+
+        return modelAndView;
+    }
+
+
 }
