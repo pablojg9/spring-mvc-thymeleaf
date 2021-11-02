@@ -1,11 +1,15 @@
 package com.project.rest.model;
 
+import org.hibernate.annotations.ForeignKey;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -21,13 +25,17 @@ public class Account implements Serializable {
     private String login;
     private String password;
 
+    @OneToMany(mappedBy = "account")
+    private List<Phone> phoneList;
+
     public Account(){}
 
-    public Account(Long id, String username, String login, String password) {
+    public Account(Long id, String username, String login, String password, List<Phone> phoneList) {
         this.id = id;
         this.username = username;
         this.login = login;
         this.password = password;
+        this.phoneList = phoneList;
     }
 
     public Long getId() {
@@ -60,6 +68,10 @@ public class Account implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Phone> getPhoneList() {
+        return phoneList;
     }
 
     @Override
