@@ -1,7 +1,11 @@
 package com.project.rest.repository;
 
 import com.project.rest.model.Phone;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-public interface PhoneRepository extends JpaRepository<Phone, Long> {
+@Repository
+@Transactional
+public interface PhoneRepository extends CrudRepository<Phone, Long> {
 }

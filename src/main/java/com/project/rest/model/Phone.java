@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Objects;
 
+@SuppressWarnings("deprecation")
 @Entity
 public class Phone implements Serializable {
 
