@@ -1,7 +1,5 @@
 package com.project.rest.model;
 
-import org.hibernate.annotations.ForeignKey;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

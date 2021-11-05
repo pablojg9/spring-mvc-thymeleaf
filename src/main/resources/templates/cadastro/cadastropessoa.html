@@ -46,7 +46,7 @@
     </button>
 
 
-    <table>
+    <table class="striped">
         <tr th:each="account : ${accounts}">
             <td th:text="${account.getId()}"></td>
             <td><a th:href="@{/phoneAccount/{idAccount}(idAccount=${account.getId()})}"><span th:text="${account.getUsername()}"></span></a></td>
