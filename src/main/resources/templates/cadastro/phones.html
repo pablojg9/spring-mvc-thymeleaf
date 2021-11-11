@@ -51,12 +51,12 @@
             <td th:text="${p.getPhoneNumber()}"></td>
             <td th:text="${p.getPhoneType()}"></td>
             <td>
-                <a class="btn-floating btn-small waves-effect waves-light blue">
+                <a th:href="@{/editPhone/{idPhone}(idPhone=${p.getId()})}" class="btn-floating btn-small waves-effect waves-light blue">
                     <i class="material-icons left">edit</i>
                 </a>
             </td>
             <td>
-                <a  class="btn-floating btn-small waves-effect waves-light red">
+                <a th:href="@{phoneDelete/{idPhone}(idPhone=${p.getId()})}" class="btn-floating btn-small waves-effect waves-light red">
                     <i class="material-icons right">remove_circle</i>
                 </a>
             </td>

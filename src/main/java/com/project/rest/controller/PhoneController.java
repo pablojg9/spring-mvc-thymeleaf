@@ -51,4 +51,30 @@ public class PhoneController {
 
         return modelAndView;
     }
+
+    @GetMapping(value = "**/editPhone/{idPhone}")
+    public ModelAndView editPhone(@PathVariable("idPhone") Long idPhone) {
+        Optional<Phone> phone = phoneRepository.findById(idPhone);
+
+        ModelAndView modelAndView = new ModelAndView("cadastro/phones");
+
+        modelAndView.addObject("accountobj", phone.get());
+
+        return modelAndView;
+    }
+
+    @GetMapping(value = "**/phoneDelete/{idPhone}")
+    public ModelAndView phoneDelete(@PathVariable("idPhone") Long idPhone) {
+        ModelAndView modelAndView = new ModelAndView("cadastro/phones");
+
+        Account account = phoneRepository.findById(idPhone).get().getAccount();
+
+        phoneRepository.deleteById(idPhone);
+
+        modelAndView.addObject("accountobj", account);
+        modelAndView.addObject("phones", phoneRepository.getPhones(account.getId()));
+
+        return modelAndView;
+
+    }
 }

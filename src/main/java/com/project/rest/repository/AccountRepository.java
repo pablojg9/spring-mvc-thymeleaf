@@ -14,5 +14,4 @@ public interface AccountRepository extends CrudRepository<Account, Long> {
 
     @Query("select p from Account p where p.username like %?1%")
     List<Account> findAccountByUsername(String nome);
-
 }

@@ -1,9 +1,8 @@
 package com.project.rest.controller;
 
 import com.project.rest.model.Account;
-import com.project.rest.model.Phone;
 import com.project.rest.repository.AccountRepository;
-import com.project.rest.repository.PhoneRepository;
+import com.project.rest.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +21,14 @@ public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private AccountService accountService;
+
     @RequestMapping(method = RequestMethod.GET, value = "/register")
     public ModelAndView viewHandler(){
 
         ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
-        Iterable<Account> accountIterable = accountRepository.findAll();
+        Iterable<Account> accountIterable = accountService.findAll();
 
         modelAndView.addObject("accounts", accountIterable);
         modelAndView.addObject("accountobj", new Account());
@@ -35,11 +37,11 @@ public class AccountController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/save")
     public ModelAndView save(Account account){
-        accountRepository.save(account);
+        accountService.save(account);
 
         ModelAndView andView = new ModelAndView("cadastro/cadastropessoa");
 
-        Iterable<Account> accountIterable = accountRepository.findAll();
+        Iterable<Account> accountIterable = accountService.findAll();
         andView.addObject("accounts", accountIterable);
         andView.addObject("accountobj", new Account());
 
@@ -50,7 +52,7 @@ public class AccountController {
     public ModelAndView accounts() {
         ModelAndView andView = new ModelAndView("cadastro/cadastropessoa");
 
-        Iterable<Account> accountIterable = accountRepository.findAll();
+        Iterable<Account> accountIterable = accountService.findAll();
 
         andView.addObject("accounts", accountIterable);
         andView.addObject("accountobj", new Account());
@@ -60,7 +62,7 @@ public class AccountController {
     @GetMapping(value = "/editAccount/{idAccount}")
     public ModelAndView accountEdit(@PathVariable("idAccount") Long idAccount) {
 
-        Optional<Account> account = accountRepository.findById(idAccount);
+        Optional<Account> account = accountService.findById(idAccount);
 
         ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
         modelAndView.addObject("accountobj", account.get());
@@ -71,10 +73,10 @@ public class AccountController {
     @GetMapping(value = "/removeAccount/{idAccount}")
     public ModelAndView accountDelete(@PathVariable("idAccount") Long idAccount) {
 
-        accountRepository.deleteById(idAccount);
+        accountService.deleteById(idAccount);
 
         ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
-        modelAndView.addObject("accounts", accountRepository.findAll());
+        modelAndView.addObject("accounts", accountService.findAll());
         modelAndView.addObject("accountobj", new Account());
 
         return modelAndView;
