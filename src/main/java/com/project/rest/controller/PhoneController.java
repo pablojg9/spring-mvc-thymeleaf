@@ -4,6 +4,8 @@ import com.project.rest.model.Account;
 import com.project.rest.model.Phone;
 import com.project.rest.repository.AccountRepository;
 import com.project.rest.repository.PhoneRepository;
+import com.project.rest.service.AccountService;
+import com.project.rest.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,12 +22,15 @@ public class PhoneController {
     private PhoneRepository phoneRepository;
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
+
+    @Autowired
+    private PhoneService phoneService;
 
     @GetMapping(value = "/phoneAccount/{idAccount}")
     public ModelAndView phoneAccount(@PathVariable("idAccount") Long idAccount) {
 
-        Optional<Account> account = accountRepository.findById(idAccount);
+        Optional<Account> account = accountService.findById(idAccount);
 
         ModelAndView modelAndView = new ModelAndView("cadastro/phones");
         modelAndView.addObject("phones", phoneRepository.getPhones(idAccount));
@@ -39,10 +44,10 @@ public class PhoneController {
 
         ModelAndView modelAndView = new ModelAndView("cadastro/phones");
 
-        Account account = accountRepository.findById(idAccountPhone).get();
+        Account account = accountService.findById(idAccountPhone).get();
         phoneNumber.setAccount(account);
 
-        phoneRepository.save(phoneNumber);
+        phoneService.save(phoneNumber);
 
         modelAndView.addObject("phones", phoneRepository.getPhones(idAccountPhone));
 
@@ -54,7 +59,7 @@ public class PhoneController {
 
     @GetMapping(value = "**/editPhone/{idPhone}")
     public ModelAndView editPhone(@PathVariable("idPhone") Long idPhone) {
-        Optional<Phone> phone = phoneRepository.findById(idPhone);
+        Optional<Phone> phone = phoneService.findById(idPhone);
 
         ModelAndView modelAndView = new ModelAndView("cadastro/phones");
 
@@ -67,7 +72,7 @@ public class PhoneController {
     public ModelAndView phoneDelete(@PathVariable("idPhone") Long idPhone) {
         ModelAndView modelAndView = new ModelAndView("cadastro/phones");
 
-        Account account = phoneRepository.findById(idPhone).get().getAccount();
+        Account account = phoneService.findById(idPhone).get().getAccount();
 
         phoneRepository.deleteById(idPhone);
 
