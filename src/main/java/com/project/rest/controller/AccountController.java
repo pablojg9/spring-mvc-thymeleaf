@@ -22,14 +22,12 @@ public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @Autowired
-    private PhoneRepository phoneRepository;
-
     @RequestMapping(method = RequestMethod.GET, value = "/register")
     public ModelAndView viewHandler(){
 
         ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
         Iterable<Account> accountIterable = accountRepository.findAll();
+
         modelAndView.addObject("accounts", accountIterable);
         modelAndView.addObject("accountobj", new Account());
         return modelAndView;
@@ -92,33 +90,6 @@ public class AccountController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/phoneAccount/{idAccount}")
-    public ModelAndView phoneAccount(@PathVariable("idAccount") Long idAccount) {
 
-        Optional<Account> account = accountRepository.findById(idAccount);
-
-        ModelAndView modelAndView = new ModelAndView("cadastro/phones");
-        modelAndView.addObject("accountobj", account.get());
-
-        return modelAndView;
-    }
-
-    @PostMapping("**/addPhone/{idAccountPhone}")
-    public ModelAndView addPhoneAccount(Phone phoneNumber, @PathVariable("idAccountPhone") Long idAccountPhone) {
-
-        ModelAndView modelAndView = new ModelAndView("cadastro/phones");
-
-        Account account = accountRepository.findById(idAccountPhone).get();
-        phoneNumber.setAccount(account);
-
-        phoneRepository.save(phoneNumber);
-
-        modelAndView.addObject("phones", phoneRepository.getPhones(idAccountPhone));
-
-        modelAndView.addObject("accountobj", account);
-        modelAndView.addObject("accountobj", new Account());
-
-        return modelAndView;
-    }
 
 }
