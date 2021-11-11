@@ -80,6 +80,5 @@ public class PhoneController {
         modelAndView.addObject("phones", phoneRepository.getPhones(account.getId()));
 
         return modelAndView;
-
     }
 }

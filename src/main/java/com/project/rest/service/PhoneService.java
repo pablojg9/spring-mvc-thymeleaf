@@ -21,5 +21,4 @@ public class PhoneService {
     public void save(Phone phone) {
         phoneRepository.save(phone);
     }
-
 }
