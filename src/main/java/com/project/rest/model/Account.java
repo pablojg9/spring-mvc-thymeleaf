@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -23,12 +24,17 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "O nome não pode ser nulo")
     @NotEmpty(message = "o nome não pode ser vazio")
+    @NotNull(message = "O nome não pode ser nulo")
     private String username;
 
-    @NotEmpty()
+    @NotNull(message = "O login não pode ser nulo!")
+    @NotEmpty(message = "o login não pode estar vazio!")
     private String login;
+
+    @NotNull(message = "A senha não pode ser nulo!")
+    @NotEmpty(message = "A senha não pode estar vazio!")
+    @Min(value = 4, message = "a senha ter que ter acima de 4 caracteres!")
     private String password;
 
     @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = CascadeType.ALL)

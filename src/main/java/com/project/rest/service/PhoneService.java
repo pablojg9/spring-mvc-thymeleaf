@@ -1,6 +1,5 @@
 package com.project.rest.service;
 
-import com.project.rest.model.Account;
 import com.project.rest.model.Phone;
 import com.project.rest.repository.PhoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
