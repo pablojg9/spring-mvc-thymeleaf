@@ -1,11 +1,10 @@
-package com.project.rest.controller;
+package com.project.rest.controllers;
 
-import com.project.rest.model.Account;
-import com.project.rest.model.Phone;
-import com.project.rest.repository.AccountRepository;
-import com.project.rest.repository.PhoneRepository;
-import com.project.rest.service.AccountService;
-import com.project.rest.service.PhoneService;
+import com.project.rest.entities.Account;
+import com.project.rest.entities.Phone;
+import com.project.rest.repositories.PhoneRepository;
+import com.project.rest.services.AccountService;
+import com.project.rest.services.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

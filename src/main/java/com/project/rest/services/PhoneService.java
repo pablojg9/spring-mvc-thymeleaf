@@ -1,7 +1,7 @@
-package com.project.rest.service;
+package com.project.rest.services;
 
-import com.project.rest.model.Phone;
-import com.project.rest.repository.PhoneRepository;
+import com.project.rest.entities.Phone;
+import com.project.rest.repositories.PhoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

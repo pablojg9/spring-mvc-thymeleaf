@@ -1,4 +1,4 @@
-package com.project.rest.model;
+package com.project.rest.entities;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

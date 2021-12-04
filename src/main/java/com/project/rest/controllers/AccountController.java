@@ -1,8 +1,8 @@
-package com.project.rest.controller;
+package com.project.rest.controllers;
 
-import com.project.rest.model.Account;
-import com.project.rest.repository.AccountRepository;
-import com.project.rest.service.AccountService;
+import com.project.rest.entities.Account;
+import com.project.rest.repositories.AccountRepository;
+import com.project.rest.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

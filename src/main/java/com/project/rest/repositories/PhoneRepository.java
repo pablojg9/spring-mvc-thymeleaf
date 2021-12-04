@@ -1,6 +1,6 @@
-package com.project.rest.repository;
+package com.project.rest.repositories;
 
-import com.project.rest.model.Account;
+import com.project.rest.entities.Phone;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -10,8 +10,8 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface AccountRepository extends CrudRepository<Account, Long> {
+public interface PhoneRepository extends CrudRepository<Phone, Long> {
 
-    @Query("select p from Account p where p.username like %?1%")
-    List<Account> findAccountByUsername(String nome);
+    @Query("SELECT p from Phone p where p.account.id = ?1")
+    List<Phone> getPhones(Long idAccount);
 }

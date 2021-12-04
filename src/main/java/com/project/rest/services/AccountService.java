@@ -1,7 +1,7 @@
-package com.project.rest.service;
+package com.project.rest.services;
 
-import com.project.rest.model.Account;
-import com.project.rest.repository.AccountRepository;
+import com.project.rest.entities.Account;
+import com.project.rest.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

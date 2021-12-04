@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EntityScan(basePackages = "com.project.rest.model")
 @ComponentScan(basePackages = {"com.*"})
-@EnableJpaRepositories(basePackages = {"com.project.rest.repository"})
+@EnableJpaRepositories(basePackages = {"com.project.rest.repositories"})
 @EnableTransactionManagement
 public class RestapiApplication {
 
