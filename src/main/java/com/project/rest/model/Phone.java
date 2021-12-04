@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -19,7 +21,13 @@ public class Phone implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @NotEmpty(message = "O telefone não pode estar vazio!")
+    @NotNull(message = "O telefone não pode estar nulo!")
     private String phoneNumber;
+
+    @NotEmpty(message = "O tipo do telefone não pode estar vazio!")
+    @NotNull(message = "O tipo do telefone não pode estar nulo!")
     private String phoneType;
 
     @ManyToOne

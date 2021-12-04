@@ -13,6 +13,10 @@ public class PhoneService {
     @Autowired
     private PhoneRepository phoneRepository;
 
+    public Iterable<Phone> findAll() {
+        return phoneRepository.findAll();
+    }
+
     public Optional<Phone> findById(Long idPhone) {
         return phoneRepository.findById(idPhone);
     }

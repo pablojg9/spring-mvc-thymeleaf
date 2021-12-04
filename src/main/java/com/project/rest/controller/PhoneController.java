@@ -8,11 +8,16 @@ import com.project.rest.service.AccountService;
 import com.project.rest.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -40,7 +45,31 @@ public class PhoneController {
     }
 
     @PostMapping("**/addPhone/{idAccountPhone}")
-    public ModelAndView addPhoneAccount(Phone phoneNumber, @PathVariable("idAccountPhone") Long idAccountPhone) {
+    public ModelAndView addPhoneAccount(@Valid Phone phoneNumber, BindingResult bindingResult, @PathVariable("idAccountPhone") Long idAccountPhone) {
+
+        if (bindingResult.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("cadastro/phones");
+
+            Iterable<Phone> phones = phoneService.findAll();
+
+            modelAndView.addObject("phones", phoneRepository.getPhones(idAccountPhone));
+
+            modelAndView.addObject("accountobj", phones);
+            modelAndView.addObject("accountobj", new Account());
+
+            List<String> message = new ArrayList<>();
+
+            for (ObjectError objectError : bindingResult.getAllErrors()) {
+                message.add(objectError.getDefaultMessage());
+            }
+
+            modelAndView.addObject("message", message);
+
+            return modelAndView;
+
+        }
+
+
 
         ModelAndView modelAndView = new ModelAndView("cadastro/phones");
 

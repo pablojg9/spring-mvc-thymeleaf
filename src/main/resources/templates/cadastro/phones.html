@@ -24,8 +24,16 @@
     <h5>Telefones</h5>
 
     <div class="row">
+
+
+
         <form th:action="@{/addPhone/{idAccountPhone}(idAccountPhone=${accountobj.getId()})}"  method="post" class="col s12">
             <div class="row">
+
+                <div th:each="m : ${message}">
+                    <span th:text="${m}"></span>
+                </div>
+
                 <div class="input-field col s6">
                     <label for="phoneNumber" class="active">Numero:</label>
                     <input id="phoneNumber" name="phoneNumber" class="validate"/>
