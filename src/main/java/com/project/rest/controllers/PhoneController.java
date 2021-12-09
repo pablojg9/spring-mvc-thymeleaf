@@ -65,10 +65,7 @@ public class PhoneController {
             modelAndView.addObject("message", message);
 
             return modelAndView;
-
         }
-
-
 
         ModelAndView modelAndView = new ModelAndView("cadastro/phones");
 
