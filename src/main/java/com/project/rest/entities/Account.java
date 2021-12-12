@@ -34,7 +34,6 @@ public class Account implements Serializable {
 
     @NotNull(message = "A senha não pode ser nulo!")
     @NotEmpty(message = "A senha não pode estar vazio!")
-    @Min(value = 4, message = "a senha ter que ter acima de 4 caracteres!")
     private String password;
 
     @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = CascadeType.ALL)
