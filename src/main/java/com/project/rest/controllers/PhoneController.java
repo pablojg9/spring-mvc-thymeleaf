@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -44,37 +45,29 @@ public class PhoneController {
     }
 
     @PostMapping("**/addPhone/{idAccountPhone}")
-    public ModelAndView addPhoneAccount(@Valid Phone phoneNumber, BindingResult bindingResult, @PathVariable("idAccountPhone") Long idAccountPhone) {
+    public ModelAndView addPhoneAccount(Phone phoneNumber, @PathVariable("idAccountPhone") Long idAccountPhone) {
 
-        if (bindingResult.hasErrors()) {
+        Account account = accountService.findById(idAccountPhone).get();
+
+        if (phoneNumber != null && (phoneNumber.getPhoneNumber() != null && phoneNumber.getPhoneNumber().isEmpty())
+                || Objects.requireNonNull(phoneNumber).getPhoneNumber() == null) {
+
             ModelAndView modelAndView = new ModelAndView("cadastro/phones");
 
-            Iterable<Phone> phones = phoneService.findAll();
-
+            modelAndView.addObject("accountobj", account);
             modelAndView.addObject("phones", phoneRepository.getPhones(idAccountPhone));
 
-            modelAndView.addObject("accountobj", phones);
-            modelAndView.addObject("accountobj", new Account());
-
-            List<String> message = new ArrayList<>();
-
-            for (ObjectError objectError : bindingResult.getAllErrors()) {
-                message.add(objectError.getDefaultMessage());
-            }
-
-            modelAndView.addObject("message", message);
-
+            List<String> msg = new ArrayList<>();
+            msg.add("Número deve ser informado!");
+            modelAndView.addObject("message", msg);
             return modelAndView;
         }
 
         ModelAndView modelAndView = new ModelAndView("cadastro/phones");
 
-        Account account = accountService.findById(idAccountPhone).get();
         phoneNumber.setAccount(account);
 
         phoneService.save(phoneNumber);
-
-        modelAndView.addObject("phones", phoneRepository.getPhones(idAccountPhone));
 
         modelAndView.addObject("accountobj", account);
         modelAndView.addObject("accountobj", new Account());
